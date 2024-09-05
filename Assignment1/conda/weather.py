@@ -15,10 +15,10 @@ df.set_index('DATE', inplace=True)
 monthly_data= df['HPCP'].resample('M').mean()
 
 #Use seaborn to create a line plot
-sns.lineplot(data.monthly_data)
+sns.lineplot(data=monthly_data)
 plt.xlabel('Date')
 plt.ylabel('Precipitation (inches)')
-plt.titile('Athens, GA Rain Gauge')
+plt.title('Athens, GA Rain Gauge')
 
 #save the figure
 plt.savefig('athens_rain_guage.png', dpi=300, bbox_inches='tight')
