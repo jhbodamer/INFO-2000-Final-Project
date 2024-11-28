@@ -2,7 +2,7 @@
 from GameSetup import *
 
 
-test = Paddle(7, 0 , 100, 0)
+test = Paddle(7, 0 , 100, math.pi/2)
 ball = Ball(5,0)
 while True:
     # this sets how fast the game will run
@@ -17,4 +17,6 @@ while True:
     #create test paddle obj
     test.update()
 
-    ball.update()
+    ball.update(test)
+    if ball.checkCollision(test):
+        print('collided')

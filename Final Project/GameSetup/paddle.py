@@ -10,6 +10,7 @@ class Paddle:
         self.angle = angle
         self.previousAngle = angle
 
+
     # make a class to draw paddle
     def drawAngle(self, previous=False):
         # doing some math to draw a line representing the paddle given the angle
@@ -17,18 +18,18 @@ class Paddle:
         if previous:
             angleForCalculations = self.previousAngle + math.pi / 2
             color = (255,255,255)
-            lineStart = (centerx + math.cos(self.previousAngle) * self.radius + math.cos(angleForCalculations) * self.length,
+            self.lineStart = (centerx + math.cos(self.previousAngle) * self.radius + math.cos(angleForCalculations) * self.length,
                          centery + math.sin(self.previousAngle) * self.radius + math.sin(angleForCalculations) * self.length)
-            lineEnd = (centerx + math.cos(self.previousAngle) * self.radius - math.cos(angleForCalculations) * self.length,
+            self.lineEnd = (centerx + math.cos(self.previousAngle) * self.radius - math.cos(angleForCalculations) * self.length,
                        centery + math.sin(self.previousAngle) * self.radius - math.sin(angleForCalculations) * self.length)
         else:
             color = (0,0,0)
             angleForCalculations = self.angle + math.pi / 2
-            lineStart = (centerx + math.cos(self.angle) * self.radius + math.cos(angleForCalculations) * self.length,
+            self.lineStart = (centerx + math.cos(self.angle) * self.radius + math.cos(angleForCalculations) * self.length,
                          centery + math.sin(self.angle) * self.radius + math.sin(angleForCalculations) * self.length)
-            lineEnd = (centerx + math.cos(self.angle) * self.radius - math.cos(angleForCalculations) * self.length,
+            self.lineEnd = (centerx + math.cos(self.angle) * self.radius - math.cos(angleForCalculations) * self.length,
                        centery + math.sin(self.angle) * self.radius - math.sin(angleForCalculations) * self.length)
-        pygame.draw.line(window, color, lineStart , lineEnd, width= 3)
+        pygame.draw.line(window, color, self.lineStart , self.lineEnd, width= 3)
 
         # pygame.draw.arc(window, (255, 255, 255), pygame.Rect(centerx - self.radius-1, centery - self.radius-1, self.radius * 2+2,
         #                                                self.radius * 2+2), self.angle + self.length, self.angle, width = 5)
