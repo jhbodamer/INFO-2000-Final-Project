@@ -1,5 +1,4 @@
 import pygame
-import math
 # create classes ill come back to
 
 # set the size of the window and make display object

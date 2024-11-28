@@ -1,8 +1,8 @@
 # looking at examples online, pygame needs a loop to run
 from GameSetup import *
-import pygame
-import math
-test = Paddle(math.pi, 0 , 100, 0)
+
+
+test = Paddle(7, 0 , 100, 0)
 ball = Ball(5,0)
 while True:
     # this sets how fast the game will run
@@ -15,10 +15,6 @@ while True:
             exit(0)
 
     #create test paddle obj
-    test.draw()
-    keysPressed = pygame.key.get_pressed()
-    if keysPressed[pygame.K_LEFT]:
-        test.angle+= math.pi*0.01
-    if keysPressed[pygame.K_RIGHT]:
-        test.angle-= math.pi*0.01
+    test.update()
+
     ball.draw()
