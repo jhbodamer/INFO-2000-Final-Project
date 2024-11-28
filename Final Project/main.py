@@ -17,4 +17,4 @@ while True:
     #create test paddle obj
     test.update()
 
-    ball.draw()
+    ball.update()
