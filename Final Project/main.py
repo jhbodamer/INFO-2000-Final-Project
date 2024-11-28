@@ -29,3 +29,8 @@ class Paddle:
 while True:
     # this sets how fast the game will run
     clock.tick(100)
+
+    #need this to prevent crashing
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            exit(0)
