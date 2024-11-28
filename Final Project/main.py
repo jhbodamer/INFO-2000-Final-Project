@@ -33,10 +33,15 @@ class Paddle:
 
     # make a class to draw paddle
     def draw(self):
+        pygame.draw.arc(window, (255, 255, 255), pygame.Rect(centerx - self.radius, centery - self.radius, self.radius * 2,
+                                                       self.radius * 2), self.angle + self.length, self.angle, width = 3)
         # using the draw arc function in python
         pygame.draw.arc(window, (0, 0, 0), pygame.Rect(centerx-self.radius, centery-self.radius, self.radius*2,
         self.radius*2), self.angle, self.angle+self.length)
 # looking at examples online, pygame needs a loop to run
+
+test = Paddle(math.pi, 0 , 100, 0)
+
 while True:
     # this sets how fast the game will run
     clock.tick(100)
@@ -48,6 +53,10 @@ while True:
             exit(0)
 
     #create test paddle obj
-    test = Paddle(math.pi, 0 , 100, 0)
     test.draw()
     pygame.draw.circle(window, (0,0,0), (centerx,centery), 5)
+    keysPressed = pygame.key.get_pressed()
+    if keysPressed[pygame.K_LEFT]:
+        test.angle+= math.pi*0.01
+    if keysPressed[pygame.K_RIGHT]:
+        test.angle-= math.pi*0.01
