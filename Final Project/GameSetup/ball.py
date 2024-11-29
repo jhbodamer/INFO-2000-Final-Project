@@ -28,7 +28,28 @@ class Ball:
         self.previousPos = self.position
         # draw over current position
         self.draw(True)
-        #add velocity and postion vectors
+        # check collision with both paddles and update velocity if necessary
+        collided = False
+        # check if the ball is hitting any paddles
+        for i in tupleOfPaddles:
+            if self.checkCollision(i):
+            # change the velocity based on the principle angle of incidence = angle of reflection
+                # calculate angle that the ball is travelling at
+                oldAngleOfBall = math.atan2(self.velocity[1],self.velocity[0])
+                # change velocity
+                angleOfPaddle = i.angle - math.pi / 2
+                newAngleOfBall = 2*angleOfPaddle - oldAngleOfBall
+                self.velocity = (1*math.cos(newAngleOfBall), 1*math.sin(newAngleOfBall))
+                # move the ball until it is not colliding anymore
+                self.previousPos = self.position
+                self.draw(True)
+                while self.checkCollision(i):
+                    self.position = numpy.add(self.position, (math.cos(newAngleOfBall)*1,math.sin(newAngleOfBall)*1))
+
+
+
+
+        # add velocity and postion vectors
         self.position = numpy.add(self.position, self.velocity)
         # draw new location
         self.draw(False)
@@ -45,7 +66,7 @@ class Ball:
                                     paddleToCheck.lineStart[1] + i * (paddleToCheck.lineEnd[1] - paddleToCheck.lineStart[1]) / 10))
         # for each point on the line, check if the distance to the center of the ball is less than the radius of the ball
         for i in listOfLinePoints:
-            if (((i[0]-self.position[0])**2+(i[1]-self.position[1])**2)**0.5) < self.radius:
+            if (((i[0]-self.position[0])**2+(i[1]-self.position[1])**2)**0.5) < self.radius+2:
                 return True
 
 
