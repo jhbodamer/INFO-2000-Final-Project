@@ -1,6 +1,7 @@
 import pygame
 from GameSetup.screen import window, centerx, centery
 import math
+from random import randrange
 class Paddle:
     def __init__(self, length, speed, radius, angle):
         self.length = length
@@ -43,4 +44,23 @@ class Paddle:
         if keysPressed[pygame.K_RIGHT]:
             self.angle += math.pi * 0.01 * self.speed
             self.drawAngle(True)
+        self.drawAngle(False)
+
+
+# making a class for just the cpu paddle using inheritance from the paddle class above
+class CpuPaddle(Paddle):
+    # searched it up and you need this to inherit init class and add to it
+    def __init__(self, length, speed, radius, angle, randomness):
+        super().__init__(length, speed, radius, angle)
+        # this parameter will add unpredictable movements to the cpu paddle
+        self.noise = randomness
+
+    def update(self):
+        # store where paddle is to draw over it
+        self.previousAngle = self.angle
+        # move position randomly
+        self.angle += randrange(-self.noise, self.noise)*0.01
+        # draw current position
+        self.drawAngle(True)
+        # draw previus position
         self.drawAngle(False)
