@@ -56,12 +56,17 @@ class CpuPaddle(Paddle):
         super().__init__(length, speed, radius, angle)
         # this parameter will add unpredictable movements to the cpu paddle
         self.noise = randomness
-    def update(self):
+    def update(self, ball):
         # store where paddle is to draw over it
         self.previousAngle = self.angle
         # move position randomly
         self.angle = float(self.angle)+randrange(-self.noise+1, self.noise)*0.01
+        # draw previos position
         # draw current position
+
+        if ball.angleWillCollide % math.pi - self.angle > 0:
+            self.angle += self.speed
+        if ball.angleWillCollide % math.pi - self.angle < 0:
+            self.angle -= self.speed
         self.drawAngle(True)
-        # draw previus position
         self.drawAngle(False)

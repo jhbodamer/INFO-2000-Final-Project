@@ -3,7 +3,7 @@ from GameSetup import *
 
 # make objects
 playerPaddle = Paddle(20, 1 , 100, math.pi/2)
-cpuPaddle = CpuPaddle(30, 0, 200, 3*math.pi/2, randomness= 4)
+cpuPaddle = CpuPaddle(30, 0.1, 200, 3*math.pi/2, randomness= 1)
 ball = Ball(5,0)
 count = 0
 
@@ -20,14 +20,15 @@ while True:
 
     # update paddle
     playerPaddle.update()
-    cpuPaddle.update()
+    cpuPaddle.update(ball)
+    print(ball.position[0]-centerx, ball.position[1]-centery)
     # update ball postion and print if it is colliding with player paddle
     ball.update((playerPaddle, cpuPaddle))
     if ball.checkCollision(playerPaddle):
-        print('collided')
+        #print('collided')
         count += 1
 
-        print (count)
+        #print (count)
     #end game if the ball goes out of game area with different exit codes for debugging
     if abs(ball.position[0]-centerx) > abs(cpuPaddle.radius) + 10:
         exit(1)
