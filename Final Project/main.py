@@ -2,8 +2,8 @@
 from GameSetup import *
 
 # make objects
-playerPaddle = Paddle(20, 0.3 , 100, math.pi/2)
-cpuPaddle = CpuPaddle(7, 0, 200, 3*math.pi/2, randomness= 4)
+playerPaddle = Paddle(20, 1 , 100, math.pi/2)
+cpuPaddle = CpuPaddle(30, 0, 200, 3*math.pi/2, randomness= 4)
 ball = Ball(5,0)
 count = 0
 
@@ -33,3 +33,5 @@ while True:
         exit(1)
     if abs(ball.position[1]-centery) > abs(cpuPaddle.radius) + 10:
         exit(2)
+
+

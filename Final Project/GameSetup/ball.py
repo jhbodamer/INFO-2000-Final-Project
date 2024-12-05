@@ -12,6 +12,7 @@ class Ball:
         self.position = pos
         self.previousPos = pos
         self.velocity = velocity
+        self.angleWillCollide = 0
 
     # draw function that draws
     #either current position or over previous
@@ -29,7 +30,6 @@ class Ball:
         # draw over current position
         self.draw(True)
         # check collision with both paddles and update velocity if necessary
-        collided = False
         # check if the ball is hitting any paddles
         for i in tupleOfPaddles:
             if self.checkCollision(i):
@@ -45,7 +45,10 @@ class Ball:
                 self.draw(True)
                 while self.checkCollision(i):
                     self.position = numpy.add(self.position, (math.cos(newAngleOfBall)*1,math.sin(newAngleOfBall)*1))
-
+                # use function below to recalculate where the ball will go so the cpu has an idea of where to go
+                self.calculateangleforcpu(tupleOfPaddles[1])
+                print('Angle ball will collide in degrees: ', self.angleWillCollide / math.pi / 2 * 360)
+                print(tupleOfPaddles[0].angle / math.pi / 2 * 360)
 
 
 
@@ -53,9 +56,15 @@ class Ball:
         self.position = numpy.add(self.position, self.velocity)
         # draw new location
         self.draw(False)
-        # check collision with both paddles
-        for i in tupleOfPaddles:
-            self.checkCollision(i)
+
+
+    # calculate where the ball will hit given its velocity and time so the cpu knows where to move
+    # dont know a bettr way to do this so i will just simulate using for loop
+    def calculateangleforcpu(self, paddle):
+        simPosition = self.position
+        while simPosition[0] ** 2 + simPosition[1] ** 2 < paddle.radius**2:
+            numpy.add(simPosition, self.velocity)
+        self.angleWillCollide = math.atan2(simPosition[1]-centery, simPosition[0]-centerx)
 
 
     def checkCollision(self, paddleToCheck):
