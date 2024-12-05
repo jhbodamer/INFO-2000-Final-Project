@@ -48,7 +48,7 @@ class Ball:
                 # use function below to recalculate where the ball will go so the cpu has an idea of where to go
                 self.calculateangleforcpu(tupleOfPaddles[1])
                 print('Angle ball will collide in degrees: ', self.angleWillCollide / math.pi / 2 * 360)
-                print(tupleOfPaddles[0].angle / math.pi / 2 * 360)
+                print((tupleOfPaddles[0].angle / math.pi / 2 * 360)%360)
 
 
 
@@ -63,7 +63,7 @@ class Ball:
     def calculateangleforcpu(self, paddle):
         simPosition = self.position
         while simPosition[0] ** 2 + simPosition[1] ** 2 < paddle.radius**2:
-            numpy.add(simPosition, self.velocity)
+            simPosition = numpy.add(simPosition, self.velocity)
         self.angleWillCollide = math.atan2(simPosition[1]-centery, simPosition[0]-centerx)
 
 
