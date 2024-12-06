@@ -1,17 +1,8 @@
 import pygame
-from GameSetup.gamesetup import startingDifficulty, windowSize
+from GameSetup.gamesetup import startingDifficulty
 # set the size of the window and make display object
-if windowSize == "S":
-    w = 400
-    h = 400
-elif windowSize == "M":
-    w = 700
-    h = 700
-elif windowSize == 'L':
-    w = 1000
-    h = 1000
-else:
-    raise ValueError
+w = 350
+h = 600
 
 window = pygame.display.set_mode((w,h))
 
