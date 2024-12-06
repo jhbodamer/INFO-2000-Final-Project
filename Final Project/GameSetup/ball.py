@@ -4,6 +4,7 @@ from GameSetup.screen import centerx, centery, window
 import numpy
 import math
 
+
 #class for ball that bounces
 class Ball:
     def __init__(self, size, speed, pos=(centerx, centery), velocity = (0,1)):
@@ -14,6 +15,8 @@ class Ball:
         self.velocity = velocity
         self.angleWillCollide = 0
 
+        # variable to track which paddle last hit the ball
+        self.lastPaddle = "computer"
     # draw function that draws
     #either current position or over previous
     #depending on paramerter
@@ -26,6 +29,7 @@ class Ball:
 
     def update(self, tupleOfPaddles):
         # store previous position
+        global lastPaddle
         self.previousPos = self.position
         # draw over current position
         self.draw(True)
@@ -47,6 +51,12 @@ class Ball:
                     self.position = numpy.add(self.position, (math.cos(newAngleOfBall)*1,math.sin(newAngleOfBall)*1))
                 # use function below to recalculate where the ball will go so the cpu has an idea of where to go
                 self.calculateangleforcpu(tupleOfPaddles[1])
+                # track who hit the ball last
+                if i == tupleOfPaddles[0]:
+                    self.lastPaddle = 'player'
+                else:
+                    self.lastPaddle = "computer"
+                print(self.lastPaddle)
 
 
 
@@ -59,13 +69,13 @@ class Ball:
     # calculate where the ball will hit given its velocity and time so the cpu knows where to move
     # dont know a bettr way to do this so i will just simulate using for loop
     def calculateangleforcpu(self, paddle):
+        # make fake ball and add velocity til it hits the paddle's radius
         simPosition = self.position
-        while simPosition[0] ** 2 + simPosition[1] ** 2 < paddle.radius**2:
+        while math.sqrt((simPosition[0]-centerx)**2 + (simPosition[1]-centery)**2) < paddle.radius:
             simPosition = numpy.add(simPosition, self.velocity)
+        # once the fake ball hits record its angle
         self.angleWillCollide = math.atan2(simPosition[1]-centery, simPosition[0]-centerx)
-        if self.angleWillCollide < 0:
-            self.angleWillCollide += math.pi
-        print(self.angleWillCollide)
+
 
 
     def checkCollision(self, paddleToCheck):

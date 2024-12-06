@@ -4,6 +4,7 @@ import pygame
 from GameSetup.screen import window, centerx, centery
 import math
 from random import randrange, seed
+
 class Paddle:
     def __init__(self, length, speed, radius, angle):
         self.length = length
@@ -64,9 +65,15 @@ class CpuPaddle(Paddle):
         # draw previos position
         # draw current position
 
-        if ball.angleWillCollide % math.pi - self.angle > 0:
+        # move the paddle to where the ball will hit
+        if ball.angleWillCollide - self.angle > 0 and self.angle < math.pi and ball.lastPaddle == "player":
             self.angle += self.speed
-        if ball.angleWillCollide % math.pi - self.angle < 0:
+        else:
             self.angle -= self.speed
+        if ball.angleWillCollide - self.angle < 0 and self.angle > -math.pi and ball.lastPaddle == "player":
+            self.angle -= self.speed
+        else:
+            self.angle += self.speed
+        # draw the paddle
         self.drawAngle(True)
         self.drawAngle(False)
