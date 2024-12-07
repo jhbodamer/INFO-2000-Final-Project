@@ -22,7 +22,7 @@ def readFile():
     # read stats from file
     playerFile = open("playerdata.txt", 'r')
     listOfStats = playerFile.readlines()
-    print(listOfStats)
+    # print(listOfStats)
     bounces = int(listOfStats[0][21:25])
     roundsPlayed = int(listOfStats[1][15:18])
     cpuDifficulty = int(listOfStats[2][16:19])
@@ -46,16 +46,6 @@ def game():
     window.fill((255,255,255))
     readFile()
 
-    # # read stats from file
-    # playerFile = open("playerdata.txt", 'r')
-    # listOfStats = playerFile.readlines()
-    # print(listOfStats)
-    # bounces = int(listOfStats[0][21:25])
-    # roundsPlayed = int(listOfStats[1][15:18])
-    # cpuDifficulty = int(listOfStats[2][16:19])
-    # playerFile.close()
-
-
 
     # calculate the game settings based on the difficulty
     paddleWidth  = math.ceil(30 * (1/(cpuDifficulty)**0.4))
@@ -68,7 +58,7 @@ def game():
 
     # make objects based on the difficulty
     playerPaddle = GameSetup.paddle.Paddle(paddleWidth, 1, 100, math.pi / 2)
-    cpuPaddle = GameSetup.paddle.CpuPaddle(10, cpuSpeed, 150, -math.pi / 2, randomness=3)
+    cpuPaddle = GameSetup.paddle.CpuPaddle(10, cpuSpeed, 150, -math.pi / 2, randomness=2)
     ball = GameSetup.ball.Ball(ballSize, ballSpeed)
 
     # looking at examples online, pygame needs a loop to run

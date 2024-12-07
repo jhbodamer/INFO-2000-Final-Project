@@ -1,5 +1,5 @@
 import pygame
-from GameSetup.gameplay import difficulty, bounce, gameSave
+from GameSetup.gameplay import difficulty, bounce, gameSave, game
 from GameSetup import *
 
 
@@ -24,11 +24,11 @@ def menu(message):
         # move to next screen if space bar is pressed
         keysPressed = pygame.key.get_pressed()
         if keysPressed[pygame.K_SPACE]:
-            GameSetup.gameplay.game()
+            game()
 
         # display cpu difficulty and lifetime stats
         import GameSetup.gameplay
-        displayText(f"Cpu Difficulty: {difficulty(read=True)}", font, (0,73,140), 0, 50)
+        displayText(f"Level: {difficulty(read=True)}", font, (0,73,140), 0, 50)
         displayText(f"Total Bounces: {bounce(read= True)}", font, (216, 2, 140), 0, 30)
         displayText("Press Space To Start New Round", font, (50, 73, 0), 0, -30)
         displayText(message, font, (0, 73, 140), 0, 0)

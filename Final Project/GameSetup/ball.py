@@ -15,6 +15,7 @@ class Ball:
         self.previousPos = pos
         self.velocity = (0, speed)
         self.angleWillCollide = 0
+        self.color = (0, 0, 255)
 
         # variable to track which paddle last hit the ball
         self.lastPaddle = "computer"
@@ -25,7 +26,7 @@ class Ball:
         if shadow:
             pygame.draw.circle(window, (255, 255, 255), self.previousPos, self.radius )
         else:
-            pygame.draw.circle(window, (0, 0, 255), self.position, self.radius)
+            pygame.draw.circle(window, (self.color), self.position, self.radius)
 
 
     def update(self, tupleOfPaddles):
@@ -56,10 +57,11 @@ class Ball:
                 # track who hit the ball last
                 if i == tupleOfPaddles[0]:
                     self.lastPaddle = 'player'
-
+                    self.color = (0, 255, 0)
                     bounce(False)
                 else:
                     self.lastPaddle = "computer"
+                    self.color = (255, 0, 0)
                 # print(self.lastPaddle)
 
 
@@ -79,6 +81,8 @@ class Ball:
             simPosition = numpy.add(simPosition, self.velocity)
         # once the fake ball hits record its angle
         self.angleWillCollide = math.atan2(simPosition[1]-centery, simPosition[0]-centerx)
+        # print(self.angleWillCollide)
+
 
 
 
