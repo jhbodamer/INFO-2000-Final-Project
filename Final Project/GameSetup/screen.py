@@ -1,5 +1,4 @@
 import pygame
-from GameSetup.gamesetup import startingDifficulty
 # set the size of the window and make display object
 w = 350
 h = 600

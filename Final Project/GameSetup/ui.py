@@ -1,5 +1,5 @@
 import pygame
-from GameSetup.gameplay import difficulty
+from GameSetup.gameplay import difficulty, bounce, gameSave
 from GameSetup import *
 
 
@@ -11,12 +11,14 @@ def menu(message):
     window.fill((255,255,255))
     while True:
         # this sets how fast the game will run
-        screen.clock.tick(1000)
+        screen.clock.tick(100)
         # update screen
         pygame.display.flip()
         # need this to prevent crashing
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                gameSave()
+                print("Thanks for playing, your stats are saved")
                 exit(0)
 
         # move to next screen if space bar is pressed
@@ -27,7 +29,7 @@ def menu(message):
         # display cpu difficulty and lifetime stats
         import GameSetup.gameplay
         displayText(f"Cpu Difficulty: {difficulty(read=True)}", font, (0,73,140), 0, 50)
-        displayText("Balls Hit", font, (216, 2, 140), 0, 30)
+        displayText(f"Total Bounces: {bounce(read= True)}", font, (216, 2, 140), 0, 30)
         displayText("Press Space To Start New Round", font, (50, 73, 0), 0, -30)
         displayText(message, font, (0, 73, 140), 0, 0)
 
