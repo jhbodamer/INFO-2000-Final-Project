@@ -1,18 +1,19 @@
 # simple 360 pong game
 import pygame
 from GameSetup.screen import centerx, centery, window
+from .gameplay import bounce
 import numpy
 import math
 
 
 #class for ball that bounces
 class Ball:
-    def __init__(self, size, speed, pos=(centerx, centery), velocity = (0,1)):
+    def __init__(self, size, speed, pos=(centerx, centery)):
         self.radius = size
         self.speed = speed
         self.position = pos
         self.previousPos = pos
-        self.velocity = velocity
+        self.velocity = (0, speed)
         self.angleWillCollide = 0
 
         # variable to track which paddle last hit the ball
@@ -43,7 +44,8 @@ class Ball:
                 # change velocity
                 angleOfPaddle = i.angle - math.pi / 2
                 newAngleOfBall = 2*angleOfPaddle - oldAngleOfBall
-                self.velocity = (1*math.cos(newAngleOfBall), 1*math.sin(newAngleOfBall))
+                magnitudeOfVelo = math.sqrt(self.velocity[0]**2+self.velocity[1]**2)
+                self.velocity = (magnitudeOfVelo*math.cos(newAngleOfBall), magnitudeOfVelo*math.sin(newAngleOfBall))
                 # move the ball until it is not colliding anymore
                 self.previousPos = self.position
                 self.draw(True)
@@ -54,9 +56,11 @@ class Ball:
                 # track who hit the ball last
                 if i == tupleOfPaddles[0]:
                     self.lastPaddle = 'player'
+
+                    bounce(False)
                 else:
                     self.lastPaddle = "computer"
-                print(self.lastPaddle)
+                # print(self.lastPaddle)
 
 
 

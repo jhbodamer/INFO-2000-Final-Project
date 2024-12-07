@@ -1,9 +1,14 @@
 import pygame
+from GameSetup.gameplay import difficulty
 from GameSetup import *
+
+
 # make font object
 pygame.init()
 font = pygame.font.SysFont(None, 30)
-def menu():
+def menu(message):
+    # blank screen
+    window.fill((255,255,255))
     while True:
         # this sets how fast the game will run
         screen.clock.tick(1000)
@@ -20,9 +25,12 @@ def menu():
             GameSetup.gameplay.game()
 
         # display cpu difficulty and lifetime stats
-        displayText("Cpu Difficulty: ", font, (0,73,140), 0, 50)
-        displayText("Balls Hit: ", font, (0, 73, 140), 0, 30)
-        displayText("Press Space To Start New Round", font, (0, 73, 140), 0, 0)
+        import GameSetup.gameplay
+        displayText(f"Cpu Difficulty: {difficulty(read=True)}", font, (0,73,140), 0, 50)
+        displayText("Balls Hit", font, (216, 2, 140), 0, 30)
+        displayText("Press Space To Start New Round", font, (50, 73, 0), 0, -30)
+        displayText(message, font, (0, 73, 140), 0, 0)
+
 
 
 # function for displaying text because pygame does not have built in functionality
