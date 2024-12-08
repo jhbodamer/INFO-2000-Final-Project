@@ -1,4 +1,4 @@
-Total player bounces: 19  
-Rounds Played: 6 
-CPU Difficulty: 10   
+Total player bounces: 0  
+Rounds Played: 0 
+CPU Difficulty: 1   
  

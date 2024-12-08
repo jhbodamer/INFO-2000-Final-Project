@@ -61,6 +61,8 @@ class CpuPaddle(Paddle):
         # this parameter will add unpredictable movements to the cpu paddle
         self.noise = randomness
         # self.color = color
+
+    # add small randomized movement to the cpu
     def update(self, ball):
         # store where paddle is to draw over it
         self.previousAngle = self.angle
